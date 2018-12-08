@@ -1,0 +1,10 @@
+*.swp
+*.swo
+*.swn
+bundle/*
+*.pyc
+*.bak
+*.bk
+*.DS_Store
+configs
+myconfig.sh
