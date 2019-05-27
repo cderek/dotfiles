@@ -25,6 +25,7 @@ Plugin 'chemzqm/wxapp.vim'
 Plugin 'scrooloose/syntastic'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
+Plugin 'rakr/vim-one'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
@@ -36,11 +37,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Yggdroot/indentLine'
-Plugin 'mhinz/vim-startify'
 
 " Follow the installation guide to compile language server. It's good
-" https://github.com/Valloric/YouCompleteMe#mac-os-x
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
 
@@ -209,13 +207,13 @@ nnoremap <esc><esc> :noh<return>
 " ============ THEME (Solarized Dark & Power Line) ============
 syntax enable
 set t_Co=256
-colorscheme solarized
+colorscheme one
 let g:solarized_termcolors=256
 
 if has('gui_running')
-    set background=dark
-else
     set background=light
+else
+    set background=dark
     " Compatibility for Terminal
     let g:solarized_termtrans=1
     set t_Co=256
@@ -227,8 +225,9 @@ else
     endif
 endif
 
-highlight LineNr ctermfg=grey ctermbg=white
+"highlight LineNr ctermfg=grey ctermbg=white
 
+let g:airline_theme='one'
 
 " powerline symbols
 let g:airline_powerline_fonts=1
@@ -270,6 +269,7 @@ map <C-n> : NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden= 1
+let g:NERDTreeNodeDelimiter = "\u00a0"
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
@@ -279,28 +279,6 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 " ============ NERDTree ============
-
-" ============ YouCompleteMe  ============
-let g:ycm_auto_trigger = 1
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_max_num_identifier_candidates = 5
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_filepath_completion_use_working_dir = 1
-let g:ycm_key_list_select_completion = ['<C-n>', '<C-j>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<C-k>']
-let g:ycm_key_list_stop_completion = ['<C-l>']
-let g:ycm_filetype_blacklist = {
-  \ 'tagbar' : 1,
-  \ 'text' : 1,
-  \ 'gitcommit' : 1,
-  \ }
-let g:ycm_semantic_triggers = {
-  \ 'css,less,scss': [ 're!^\s{2}', 're!:\s+' ],
-  \ 'javascript.jsx,typescript': [ '.' ],
-  \ 'clojure': [ 're!:' ]
-  \ }
-" ============ YouCompleteMe ============
 
 " ============ CtrlP ============
 " Show hidden files when using ctrlp

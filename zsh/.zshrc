@@ -94,22 +94,6 @@ source $ZSH/oh-my-zsh.sh
 # alias
 #####################################
 alias gs='git status'
-alias sml='rlwrap sml'
-alias uscheme='rlwrap uscheme'
-alias scheme='rlwrap scheme'
-
-alias mlre='pbpaste | refmt --parse ml --print re | pbcopy'
-alias reml='pbpaste | refmt --parse re --print ml | pbcopy'
-alias prtop='pbpaste | rtop'
-
-alias oldcaml='opam switch 4.02.3; eval `opam config env`'
-alias newcaml='opam switch 4.06.0; eval `opam config env`'
-
-# redefine prompt_context for hiding user@hostname
-prompt_context () { }
-
-# ocaml / opam
-eval $(opam config env)
 
 #####################################
 # auto-fu, insta productivity boost 2
