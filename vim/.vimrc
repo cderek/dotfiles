@@ -20,6 +20,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'moll/vim-node'
 Plugin 'posva/vim-vue'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'othree/html5.vim'
 Plugin 'chemzqm/wxapp.vim'
 Plugin 'scrooloose/syntastic'
@@ -271,7 +272,7 @@ let NERDTreeDirArrows = 1
 let NERDTreeShowHidden= 1
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__', '\.DS_Store']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1

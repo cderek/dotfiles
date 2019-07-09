@@ -11,3 +11,5 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH=/usr/local/gcc-8.1/bin:$PATH
 
+
+export PATH="$HOME/.cargo/bin:$PATH"
