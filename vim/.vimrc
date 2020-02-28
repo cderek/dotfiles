@@ -1,6 +1,16 @@
 set nocompatible              " be iMproved, required
+set noswapfile                " disable swap files
 syntax enable                 " enable syntax hightlight and completion
 filetype off                  " required
+
+" Be smart when using tabs 
+set smarttab
+set smartindent
+
+" 1 tab == 2 spaces
+set tabstop=2       " num of visual space per <TAB> char
+set softtabstop=2   " num of spaces for TAB when editing, useful for backspace
+set shiftwidth=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => search highlight
@@ -52,6 +62,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'Yggdroot/indentLine'
 "Fuzzy file, buffer, mru, tag, etc finder.
 Plugin 'kien/ctrlp.vim'
+Plugin 'raimondi/delimitmate'  " automatic closing of quotes, parenthesis, brackets
+Plugin 'tpope/vim-commentary'  " comment stuff out
 
 Plugin 'posva/vim-vue'      "vue highlighter
 Plugin 'ap/vim-css-color'   "preview css color
@@ -186,6 +198,16 @@ let g:user_emmet_settings = {
 
 " ctrlp ignore
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" Vim-commentary
+map <C-_> : Commentary<cr>
+autocmd FileType python,shell set commentstring=#\ %s
+autocmd FileType mako set cms=##\ %s
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
