@@ -3,13 +3,11 @@ set noswapfile                " disable swap files
 syntax enable                 " enable syntax hightlight and completion
 filetype off                  " required
 
-" Be smart when using tabs 
 set smarttab
 set smartindent
 
-" 1 tab == 2 spaces
-set tabstop=2       " num of visual space per <TAB> char
-set softtabstop=2   " num of spaces for TAB when editing, useful for backspace
+set tabstop=2
+set expandtab
 set shiftwidth=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -58,6 +56,9 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " code complete plugin
 Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+
 " 4 space show a white line
 Plugin 'Yggdroot/indentLine'
 "Fuzzy file, buffer, mru, tag, etc finder.
@@ -97,6 +98,10 @@ set number
 noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 set colorcolumn=100
+
+" theme 
+set t_Co=256
+let g:solarized_termcolors=256
 
 " ycm GoTo shortcut
 map <C-g> :YcmCompleter GoTo<cr>
@@ -195,6 +200,21 @@ let g:user_emmet_settings = {
   \  },
   \ }
 
+" NERDTree
+map <C-n> : NERDTreeToggle<CR>
+let NERDTreeWinSize=25
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeShowHidden= 1
+let g:NERDTreeNodeDelimiter = "\u00a0"
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__', '\.DS_Store']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTreeFind<CR>
 
 " ctrlp ignore
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'

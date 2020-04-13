@@ -4,6 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 # go 配置
 export GOPATH="$HOME/go"
 export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+export MONO_GAC_PREFIX="/usr/local"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
