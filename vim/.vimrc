@@ -66,6 +66,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'raimondi/delimitmate'  " automatic closing of quotes, parenthesis, brackets
 Plugin 'tpope/vim-commentary'  " comment stuff out
 
+" Airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'leafgarland/typescript-vim'
+Plugin 'tpope/vim-markdown'
+
 Plugin 'posva/vim-vue'      "vue highlighter
 Plugin 'ap/vim-css-color'   "preview css color
 Plugin 'mattn/emmet-vim'    "emmet for vim
@@ -259,3 +266,16 @@ let g:ale_linters = {
 let g:ale_linter_aliases = {'vue': 'typescript'}
 let g:ale_fixers = {'vue': ['eslint']}
 let g:ale_python_flake8_options = '--max-line-length=100'
+
+" =============================================================================
+" Plugin Configuration
+" =============================================================================
+" -----------------------------------------------------------------------------
+" Airline (Powerline)
+" -----------------------------------------------------------------------------
+" powerline symbols
+let g:airline_powerline_fonts=1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+"this line will break airline
+"set ambiwidth=double
