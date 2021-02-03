@@ -1,81 +1,79 @@
+# shameless modified from
+# https://github.com/nicksp/dotfiles/blob/master/git/gitconfig
+
 [user]
-	email = pealstyle@gmail.com
-	name = cderek
-[merge]
-	tool = vimdiff
-[mergetool]
-    prompt = false
-[url "https://github.com/"]
-	insteadOf = git://github.com/
+	name = acheng
+	email = cheng.sayhi@gmail.com
+
 [core]
-	gitproxy = gitproxy
-    editor = vim
-    autocrlf = input
-    excludesfile = ~/.gitignore
-[http]
-[https]
-    proxy = http://127.0.0.1:8087
+        editor = vim
+        autocrlf = input
+	excludesfile = /Users/derek/.gitignore
+        #safecrlf = false
+
 [alias]
-    a = add
-    aa = add --all
+        # Staging
+        a = add
+        aa = add --all
 
-    # Branch
-    br = branch
-    branch-name = rev-parse --abbrev-ref HEAD
-    branch-diff = diff master...HEAD
+        # Branch
+        br = branch
+        branch-name = rev-parse --abbrev-ref HEAD
+        branch-diff = diff master...HEAD
 
-    # Commit
-    c = commit
-    ca = commit -a
-    cm = commit -m
-    amend = commit --amend
-    amend-all = !git add --all && git commit --amend --reuse-message=HEAD
+        # Commit
+        c = commit
+        ca = commit -a
+        cm = commit -m
+        amend = commit --amend
+        amend-all = !git add --all && git commit --amend --reuse-message=HEAD
 
-    # Clone
-    cl = clone
-    sclone = clone --depth=1
+        # Clone
+        cl = clone
+        sclone = clone --depth=1
 
-    # Checkout
-    co = checkout
-    cb = checkout -b
+        # Checkout
+        co = checkout
+        cb = checkout -b
 
-    # Cherry-pick
-    cp = cherry-pick
+        # Cherry-pick
+        cp = cherry-pick
 
-    # Diff
-    d = diff --color-words
-    dc = diff --cached
-    df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+        # Diff
+        df = diff
+        dt = difftool
 
-    # Merge
-    m = merge
+        # Merge
+        m = merge
 
-    # Pull
-    pl = pull
-    plom = pull origin master
-    plum = pull upstream master
-    preb = !git fetch upstream && git rebase upstream/master
+        # Pull
+        pl = pull
+        plom = pull origin master
+        plum = pull upstream master
+        preb = !git fetch upstream && git rebase upstream/master
 
-    # Push
-    p = push
-    pom = push origin master
-    poh = push origin head
+        # Push
+        p = push
+        pom = push origin master
+        poh = push origin head
 
-    # Reset
-    unstage = reset HEAD --                      # Mixed reset (affects HEAD and Index)
-    undo = reset --soft HEAD~1                   # Undo last commit (affects HEAD only)
-    reset = reset --hard HEAD~1                  # Remove last commit (from HEAD, Index and Working Dir)
+        # http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/
+        re-ignore = !git rm -r --cached . && git add . && git commit -m "reset .gitignore"
 
-    # Remote
-    r = remote -v
+        # Reset
+        unstage = reset HEAD --                      # Mixed reset (affects HEAD and Index)
+        undo = reset --soft HEAD~1                   # Undo last commit (affects HEAD only)
+        reset = reset --hard HEAD~1                  # Remove last commit (from HEAD, Index and Working Dir)
 
-    # Misc
-    publish = "!git push --set-upstream origin $(git branch-name)"
-    lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    st = status
-    st = status
-    dt = difftool
-    l = log --stat
+        # Remote
+        r = remote -v
+
+        # Misc
+        publish = "!git push --set-upstream origin $(git branch-name)"
+        lg = log --color --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        st = status
+        st = status
+        l = log --stat
 
 # So much color
 [color]
@@ -104,10 +102,6 @@
         changed = yellow
         untracked = red
 
-[pager]
-        # Insanely beautiful diffs ==> npm install -g diff-so-fancy
-        diff = diff-so-fancy | less --tabs=4 -RFX
-        show = diff-so-fancy | less --tabs=4 -RFX
 
 # Push easily http://stackoverflow.com/a/23918418/89484
 [push]
@@ -125,10 +119,17 @@
 	process = git-lfs filter-process
 
 
+# difftool for side-by-side diff in vim
+[diff]
+	tool = vimdiff
 
-
-
-
-
-[url "https://"]
-	insteadOf = git://
+[difftool]
+	prompt = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/derek/.stCommitMsg

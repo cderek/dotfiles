@@ -1,10 +1,24 @@
-*.swp
-*.swo
-*.swn
-bundle/*
+# OS or Editor files
+._*
+.DS_Store
+Thumbs.db
+
+# Jetbrains
+.idea
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Always-ignore extensions
+*~
+*.diff
+*.err
+*.log
+*.orig
 *.pyc
-*.bak
-*.bk
-*.DS_Store
-configs
-myconfig.sh
+*.rej
+*.sass-cache
+*.sw?
+*.vi
+

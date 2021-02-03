@@ -1,21 +1,15 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# go 配置
-export GOPATH="$HOME/go"
-export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
-export MONO_GAC_PREFIX="/usr/local"
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="af-magic"
 
-# agnoster handle git sync and becomes condiferably slow.
+# bullet-like, but it handle git sync-ly and becomes condiferably slow.
 # ZSH_THEME="agnoster"
 
-# similar but not: https://github.com/sindresorhus/pure
+# a fork of <https://github.com/sindresorhus/pure>
 ZSH_THEME="refined-lambda"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -56,13 +50,17 @@ ZSH_THEME="refined-lambda"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  zsh-syntax-highlighting
+  # zsh-autosuggestions
+  zsh-completions
+)
 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# plugins=(zsh-autosuggestions)
 
 # https://github.com/zsh-users/zsh-completions
-# plugins=(zsh-completions)
+#plugins=(zsh-completions)
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -95,10 +93,119 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+HISTSIZE=10000
+HISTFILESIZE=10000
+
 #####################################
 # alias
 #####################################
-alias gs='git status'
+
+# highlight dir from file
+alias ls='ls -FHG'
+
+# alias vim to neovim
+if [ -x "$(command -v nvim)" ]; then
+  # nvim will still invoke nvim stable
+  alias nvimnightly='~/nvim-nightly/bin/nvim'  # neovim nightly
+  alias vi='nvimnightly'
+  alias vim='nvimnightly'
+  alias vim8='\vim' # vim 8.1
+fi
+
+# vim
+EDITOR=vim
+GIT_EDITOR=vim
+
+# emacs (open in new instance)
+alias emacs='open -n -a Emacs.app .'
+alias emacsterm='\emacs-26.2'
+alias oldemacs='\emacs'
+
+# rlwrap
+alias sml='rlwrap sml'
+alias jake='rlwrap jake'
+alias uscheme='rlwrap uscheme'
+alias scheme='rlwrap scheme'
+alias racket='rlwrap racket'
+
+# grep (recursive, linenum)
+alias greprn='grep -rn'
+
+# reason
+alias mlre='pbpaste | refmt --parse ml --print re | pbcopy'
+alias reml='pbpaste | refmt --parse re --print ml | pbcopy'
+alias prtop='pbpaste | rtop'
+
+# ocaml / opam switch (upgrade to opam 2.0)
+alias evalopamenv='eval $(opam env)'
+
+# 4.02.3 for Reason/BuckleScript <=5 and Coq 8.4 (JSCert)
+alias opamswitch402='opam switch reason && evalopamenv'
+
+# 4.05.* for Coq 8.8.2 (Software Foundation)
+alias opamswitch405='opam switch unsafe-str && evalopamenv'
+
+# echo $PATH line by line
+alias echopath='tr ":" "\n" <<< "$PATH"'
+
+# cloc coq .v
+alias clocv='cloc --by-file-by-lang --match-f=v --exclude-dir="Lib" .'
+
+# langfc
+alias fc='./bin/langfc -Ckeep-convert-to-reploc=true -Ckeep-vm-codegen=true'
+
+# only eval opam on `source .zshrc` if opam is an executable
+if [ -x "$(command -v opam)" ]; then
+  eval $(opam config env)
+fi
+
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# haskell
+alias stack-all='ls $(stack path --programs)'
+
+# permission
+alias sudolocalbin='sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/sbin'
+
+# colorful stderr
+# https://serverfault.com/questions/59262/bash-print-stderr-in-red-color
+# color()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
+color()(set -o pipefail;"$@" 2>&1 1>&3|sed $'s,.*,\e[31m&\e[m,'1>&2)3>&1
+
+# redefine prompt_context for hiding user@hostname
+prompt_context () { }
+
+
+#####################################
+# iTerm - macOS dark mode awareness
+# https://apas.gr/2018/11/dark-mode-macos-safari-iterm-vim/
+#####################################
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    sith() {
+        val=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
+        if [[ $val == "Dark" ]]; then
+            i
+        fi
+    }
+
+    i() {
+        if [[ $ITERM_PROFILE == "Default" ]]; then
+            echo -ne "\033]50;SetProfile=Dark\a"
+            export ITERM_PROFILE="Dark"
+        else
+            echo -ne "\033]50;SetProfile=Default\a"
+            export ITERM_PROFILE="Default"
+        fi
+    }
+
+    sith
+fi
+
+alias iterm-dark-mode="i"
+
+
 
 #####################################
 # auto-fu, insta productivity boost 2
@@ -112,6 +219,7 @@ compdef noopt npm make brew
 # See https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org#completing-generic-gnu-commands
 compdef _gnu_generic bsc bsb ocamlc yarn
 
+# https://github.com/hchbaw/auto-fu.zsh
 # Fork with cleaned-up readme:
 # https://github.com/HerringtonDarkholme/auto-fu.zsh
 
@@ -122,21 +230,16 @@ compdef _gnu_generic bsc bsb ocamlc yarn
 # cd ~/.auto-fu
 # git checkout pu
 
-if [ -f ~/.auto-fu/auto-fu.zsh ]; then
-  source ~/.auto-fu/auto-fu.zsh
-  function zle-line-init () {
-    auto-fu-init
-  }
-  zle -N zle-line-init
-  zstyle ':completion:*' completer _oldlist _complete
-fi
-zstyle ':auto-fu:var' postdisplay $''
+# below is commented out to to turn off auto-fu.
+# the main issue is mis-match and performance
+# using ** for FZF for some cases instead
 
-export NVM_DIR="/Users/derek/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/derek/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/derek/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/derek/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/derek/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+# if [ -f ~/.auto-fu/auto-fu.zsh ]; then
+#   source ~/.auto-fu/auto-fu.zsh
+#   function zle-line-init () {
+#     auto-fu-init
+#   }
+#   zle -N zle-line-init
+#   zstyle ':completion:*' completer _oldlist _complete
+# fi
+# zstyle ':auto-fu:var' postdisplay $''
