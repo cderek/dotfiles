@@ -133,3 +133,7 @@
 	trustExitCode = true
 [commit]
 	template = /Users/derek/.stCommitMsg
+[credential]
+	helper = store
+[pull]
+	ff = only
